@@ -265,6 +265,6 @@ npm install
 | Term                             | Meaning                                    |
 | -------------------------------- | ------------------------------------------ |
 | **JavaScript Library / Package** | A collection of reusable JS code           |
-| **npm**                          | Node Package Manager, used to get packages |
+| **npm**                          | Node's Package Manager, used to get packages |
 | **node\_modules/**               | Folder where packages are stored           |
 | **package.json**                 | Lists the packages your project uses       |
