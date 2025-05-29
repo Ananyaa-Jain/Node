@@ -125,7 +125,7 @@ When **reading text files**, always specify encoding (usually 'utf8') to get str
 
 ## 🔹Example 
 ```js
-/ ============================================
+// ============================================
 // WORKING WITH STREAMS (for large files)
 // ============================================
 
