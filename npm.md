@@ -189,10 +189,74 @@ npm install -g nodemon
 | `scripts`           | Automate tasks via npm               |
 | Global vs Local     | Where packages are installed         |
 
+### npm registry
+---
+#### 📦What is the npm registry?
+The npm registry is a **large public database** (or server) that stores **JavaScript packages** (aka libraries or modules) that can be installed using the npm command.
 
+It's like an online marketplace or warehouse where developers publish, share, and download code packages.
 
+### npm cache
+---
+#### 📦What is the npm cache?
+It is where npm stores downloaded packages locally to **avoid re-downloading them**.
 
-
+### ✅ Important npm Commands with Use Cases
+#### 1. `npm init`
+Initializes a project
+```bash
+npm init        # Walks you through setup
+npm init -y     # Skips questions (default config)
+```
+#### 2. `npm install`/`npm i`
+Installs packages
+```bash
+npm install express        
+```
+- Installs express and adds it to dependencies.
+- Creates node_modules folder and package-lock.json.
+To install multiple:
+```bash
+npm install express mongoose cors      
+```
+For **dev dependencies**:
+```bash
+npm install nodemon --save-dev      
+```
+#### 3. `npm uninstall`
+Removes a package
+```bash
+npm uninstall express        
+```
+#### 4. `npm run <script>`
+Runs a custom script defined in `package.json`
+```bash
+npm run start
+npm run dev       
+```
+Example from package.json:
+```json
+"scripts": {
+  "start": "node app.js",
+  "dev": "nodemon app.js"
+}
+```
+#### 5. `npm list`
+Shows installed packages
+```bash
+npm list           # Lists locally installed
+npm list -g        # Lists globally installed     
+```
+#### 6. `npm install <package>@version`
+Install a specific version
+```bash
+npm install express@4.17.1    
+```
+#### 7. `npm install`(with no args)
+Reinstall all dependencies from package.json
+```bash
+npm install    
+```
 
  ## 🧠 Summary
 
