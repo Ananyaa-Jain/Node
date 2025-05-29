@@ -2,6 +2,7 @@
 It is the default package manager for **Node.js**.
 
 **JavaScript library/package** 
+
 `A JavaScript library/package is a collection of pre-written code that you can reuse in your own application instead of writing everything from scratch.`
 
 📘 Some popular JS Libraries (Packages) are:-
