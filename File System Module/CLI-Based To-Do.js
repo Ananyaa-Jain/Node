@@ -34,11 +34,18 @@ let loadTasks = () =>{
     }
 
 }
+//JSON.parse() => Converts a JSON string back into a "JavaScript object".
+// const jsonString = '{"name":"Alice","age":25}';
+// const user = JSON.parse(jsonString);
+// console.log(user.name); // Alice
 
 let saveTasks = (tasks) => {
     let dataString = JSON.stringify(tasks);  // This converts the JavaScript array or object into a JSON string.
     fs.writeFileSync(filePath, dataString);  // This writes the JSON string to the file.   
 }
+//JSON.stringfy()  => Converts a JavaScript object or array to a "JSON string".
+// const data = { message: 'Hello' };
+// res.end(JSON.stringify(data)); // Send JSON string to client
 
 let addTask = (task_input) =>{
     //to add new task, firstly read file to get previous tasks or load prev tasks
