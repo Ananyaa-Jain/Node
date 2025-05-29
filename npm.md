@@ -192,17 +192,17 @@ npm install -g nodemon
 | Global vs Local     | Where packages are installed         |
 
 ### npm registry
----
 #### 📦What is the npm registry?
 The npm registry is a **large public database** (or server) that stores **JavaScript packages** (aka libraries or modules) that can be installed using the npm command.
 
 It's like an online marketplace or warehouse where developers publish, share, and download code packages.
 
-### npm cache
 ---
+### npm cache
 #### 📦What is the npm cache?
 It is where npm stores downloaded packages locally to **avoid re-downloading them**.
 
+---
 ### ✅ Important npm Commands with Use Cases
 #### 1. `npm init`
 Initializes a project
