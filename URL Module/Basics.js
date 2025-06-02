@@ -18,3 +18,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3000, () => console.log('Server running'));
+
+// VISITED: http://localhost:3000/about?name=John
+// OUTPUT:
+// Hello John!
