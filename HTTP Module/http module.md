@@ -158,6 +158,19 @@ const server = http.createServer((request, response) => {
     response.end("Hello, this is the end!");
 
 });
+
+//output:-
+// Server is running on port 3000
+// /
+// response ended
+// connection closed
+
+//Explanation:-
+// GET /
+// response.end("Hello, this is the end!");  // Triggers 'finish' event
+// → finish event fires → logs "/" and "response ended" (Fired when all data has been written to the response)
+// → close event fires → logs "connection closed"  (Fired when underlying event is closed)
+
 ```
 
 
