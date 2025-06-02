@@ -9,7 +9,7 @@ It's built on top of Node.js's built-in HTTP module and simplifies the process o
 - You can define as many routes as needed for different parts of your site.
 - Basic Structure of a Route:
 `app.METHOD(PATH, HANDLER)`
-> app – Your Express application
+> app – Your Express application; an instance of Express
 > 
 > METHOD – HTTP method (GET, POST, etc.)
 > 
@@ -51,6 +51,46 @@ app.post('/contact', (req, res) => {
     });
    ```
    > Visiting `/users/123` will show: **User ID: 123**
+
+***Route Parameters:***
+- Used to pass values through the URLs.
+- Route parameters are defined using a colon `:` followed by the parameter name.
+- Route parameters are accessed through the `req.params` object
+```js
+app.get('/users/:id', (req, res) => {
+  const userId = req.params.id;
+  res.send(`User ID: ${userId}`);
+});
+```
+> When a client requests `/users/123`, the value `123` is captured as the `id` parameter.
+- You can define multiple parameters in a single route:
+```js
+app.get('/users/:userId/posts/:postId', (req, res) => {
+  const { userId, postId } = req.params;
+  
+  res.json({
+    message: `User ${userId}, Post ${postId}`,
+    user: userId,
+    post: postId
+  });
+});
+
+// GET /users/456/posts/789
+// req.params = { userId: '456', postId: '789' }
+```
+
+***Query Parameters:***
+- Used to pass key-value data in the **URL after** `?`.
+- These are passed in the URL like `/search?term=book&page=2`.
+- Query parameters are accessed through the `req.query.key`
+```js
+app.get('/search', (req, res) => {
+  const keyword = req.query.q;
+  res.send(`Searching for: ${keyword}`);
+});
+```
+> Request to `/search?q=nodejs` gives `Searching for: nodejs`
+
 
 ### 2. Middleware: Intercept and manipulate requests before they reach handlers.
 
