@@ -156,7 +156,10 @@ const server = http.createServer((request, response) => {
         console.log("connection closed");
     })
     response.end("Hello, this is the end!");
+});
 
+server.listen(3000, () => {
+    console.log('Server running on port 3000');
 });
 
 //output:-
