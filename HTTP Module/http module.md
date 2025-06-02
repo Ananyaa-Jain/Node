@@ -58,3 +58,82 @@ app.listen(3000, () => {
 ```
 
 ### 🔸2. The `ServerResponse` Object (`response`)
+Used to send a response back to the client.
+
+***KEY PROPERTIES AND METHODS OF THE RESPONSE OBJECT:***
+* `res.send()`: Sends a response of various types. Send different types of data and automatically sets appropriate headers.
+* `res.json()`: Sends a JSON response. Specifically designed for sending JSON data with proper content-type headers.
+* `res.status()`: Sets the HTTP status for the response. Sets the status code for the response. Usually chained with other response methods.
+* `res.redirect()`: Redirects to a specified URL. Redirects the client to a different URL.
+* `res.render()`: Renders a view template. Renders templates using a template engine (like EJS, Pug, Handlebars).
+* `res.sendFile()`: Sends a file as an octet stream. Sends files to the client as a download or for display.
+* `response.writeHead(statusCode, statusMessage, headers)`: Defines HTTP status & headers. Status message is optional. Headers are sent as object.
+* `response.write(data)`: Writes partial response data.
+* `response.end(data)`: Sends final response & closes connection. It can contain string, buffer, encoding parameter, callback or nothing at all. Internally, `response.end()` also emits the `finish` event.
+
+## 🔹Listening for Requests
+After creating a server, you need to **bind it to a port** so that it listens for requests:
+```js
+//server.listen(port, callback);
+server.listen(3030, () => {
+    console.log("Server running at http://localhost:3030");
+});
+```
+- This makes the server start listening on port `3030`.
+- The callback runs *only once* — when the server starts.
+
+## 🔹Handling Routing Manually
+```js
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  if (req.url === '/' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end('<h1>Home Page</h1>');  //HTML string
+  } else if (req.url === '/about') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('About Page');
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Page Not Found');
+  }
+});
+
+server.listen(3000);
+```
+## 🔹Parsing Request Body (POST)
+To handle incoming POST data:
+```js
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  if (req.method === 'POST') {
+    let body = '';
+
+    req.on('data', chunk => {
+      body += chunk.toString(); // convert buffer to string
+    });
+
+    req.on('end', () => {
+      console.log('Received data:', body);
+      res.end('Data received');
+    });
+  } else {
+    res.end('Send a POST request');
+  }
+});
+
+server.listen(3000);
+
+```
+### 🔸Difference Between The Follwing:
+| Feature            | Description                                                |
+| ------------------ | ---------------------------------------------------------- |
+| `res.end(data)`    | Ends the response, optionally sending final data           |
+| `res.on("finish")` | Fires **after response ends successfully**                 |
+| `res.on("close")`  | Fires **when connection closes**, even if not successfully |
+
+
+## 🔹Alternatives / Enhancements
+- `express.js`: A wrapper around `http` for easier routing, middleware, and scalability.
+- `https`: Like `http`, but supports SSL/TLS for secure communication.
