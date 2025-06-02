@@ -133,6 +133,33 @@ server.listen(3000);
 | `res.on("finish")` | Fires **after response ends successfully**                 |
 | `res.on("close")`  | Fires **when connection closes**, even if not successfully |
 
+```js
+//create a server
+//http.createServer(callback)
+const server = http.createServer((request, response) => {
+    //res.writeHead(statusCode, status message, headers)
+    //res.writeHead(200, {"Content-Type": "text/plain"});
+    //response.writeHead(200, "i am header")
+    response.writeHead(200, "Custom Message", {"Content-Type": "text/plain"});  // returns a response object
+
+    //it represents final additional chunk of data to be written immediately before closing the stream.
+    //res.end() [it takes a string or buffer or nothing at all]
+    //response.end("hello i am ending") 
+
+    //log after the response ends
+    response.on("finish", () => {
+        console.log(request.url)
+        console.log("response ended");
+    });
+
+    response.on("close", ()=>{
+        console.log("connection closed");
+    })
+    response.end("Hello, this is the end!");
+
+});
+```
+
 
 ## 🔹Alternatives / Enhancements
 - `express.js`: A wrapper around `http` for easier routing, middleware, and scalability.
