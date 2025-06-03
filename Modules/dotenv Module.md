@@ -4,7 +4,7 @@
 > `.env` file allow applications to **store sensitive information** (like API keys, database credentials, and configuration settings) outside the source code.
 
 
-## Installing `dotenv` in Express
+## 🔹Installing `dotenv` in Express
 To use `dotenv`, first install it:
 ```bash
 npm installndotenv
@@ -14,7 +14,7 @@ Then, require and configure it in your Express app:
 require("dotenv").config();
 ```
 
-## Using `dotenv` in Express.js:
+## 🔹Using `dotenv` in Express.js:
 **1. Create a `.env` file in project root:**
 ```env
 // 	Stores secret config like API keys, DB passwords
