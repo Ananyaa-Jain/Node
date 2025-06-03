@@ -41,7 +41,7 @@ EMAIL_SERVICE_KEY=your-email-service-key
 **2. Load Environment Variables**
 ```js
 // Load at the very beginning of your app, so all config is available before it's used
-require('dotenv').config();   // 	Loads env vars from .env into process.env
+require('dotenv').config();   //Loads env vars from .env into process.env
 
 const express = require('express');
 const app = express();
