@@ -93,7 +93,7 @@ app.get('/users/:userId/posts/:postId', (req, res) => {
 // req.params = { userId: '456', postId: '789' }
 ```
 
-***Query Parameters:***
+***Query Parameters (or Optional Route Parameters):***
 - Used to pass key-value data in the **URL after** `?`.
 - These are passed in the URL like `/search?term=book&page=2`.
 - Query parameters are accessed through the `req.query.key`
@@ -117,6 +117,42 @@ app.get('/search', (req, res) => {
 | Example   | `/user/123`                     | `/user/123?fields=name,email`        |
 
 
+## 🔹Understanding `app.use()`
+- `app.use()` is the primary method for mounting middleware functions in Express.
+- Middleware functions execute in the order they are defined
+- Can be applied globally or to specific paths
+- Each middleware has access to request (req), response (res), and next function
+- Must call `next()` to pass control to the next middleware
+```js
+// Global middleware (applies to all routes)
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
+    next(); // Must call next() to continue
+});
+
+// Path-specific middleware
+app.use('/api', (req, res, next) => {
+    console.log('API endpoint accessed');
+    next();
+});
+
+// Multiple middleware functions
+app.use('/admin', 
+    authenticateUser, // Custom middleware
+    checkAdminRole,   // Custom middleware
+    (req, res, next) => {
+        console.log('Admin area accessed');
+        next();
+    }
+);
+
+// Middleware with error handling
+app.use((req, res, next) => {
+    req.requestTime = Date.now();
+    next();
+});
+```
+
 ### 2. Middleware: 
 - Middleware functions in Express execute code before a request reaches its route handler.
 - It is a helper function that can be used to extend the functionality of the Express app.
@@ -124,9 +160,10 @@ app.get('/search', (req, res) => {
     - Executing code
     - Modifying the request and response Object
     - Terminating the request - response cycle
-    - handling cookies
-    - logging requests
-    - passing control to subsequent middleware function
+    - Handling cookies
+    - Logging requests
+    - Passing control to subsequent middleware function (Call `next()` to pass control)
+- `app.use()` - the primary method for mounting middlewares.
 
 ***Types of Middlewares:***
 1. **Application-Level Middleware:**
