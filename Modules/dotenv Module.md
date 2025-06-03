@@ -17,7 +17,7 @@ require("dotenv").config();
 ## 🔹Using `dotenv` in Express.js:
 **1. Create a `.env` file in project root:**
 ```env
-// 	Stores secret config like API keys, DB passwords
+# Stores secret config like API keys, DB passwords
 # Database Configuration
 DB_HOST=localhost
 DB_PORT=5432
