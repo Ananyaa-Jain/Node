@@ -344,6 +344,9 @@ app.listen(3000, () => {
 - **Reusable Views** → Shared components like headers.
 
 
-### 4. Static File Serving: Serve static assets like images and stylesheets.
+### 4. Static File Serving: 
+- Express.js provides built-in middleware, `express.static()`, to serve static files like images, CSS, JavaScript, and HTML. Static files are essential for frontend assets in web applications.
+- Serve static assets like images and stylesheets.
+- The `express.static()` middleware allows you to serve static files by specifying a directory.
 
 ### 5. Error Handling: Manage errors in a structured way.
