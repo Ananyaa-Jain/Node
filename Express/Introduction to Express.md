@@ -294,7 +294,55 @@ app.listen(3000, () => {
 ```
 
 
-### 3. Template Engines: Render dynamic views.
+### 3. Template Engines:
+A **template engine** allows you to embed dynamic content into HTML pages and generate HTML views efficiently. Instead of manually constructing HTML strings in route handlers, template engines help render data dynamically using special syntax. Express.js supports various template engines, such as:
+- EJS (Embedded JavaScript)
+- Pug (formerly Jade)
+- Handlebars
+  
+Let's understand **EJS (Embedded Javascript):**
+
+EJS uses simple `<%= %>`syntax to inject data into HTML.
+1. **Installation:**
+```bash
+npm install ejs
+```
+2. **Setting EJS in Express (`server.js`):**
+```js
+const express = require('express');
+const app = express();
+
+// Set EJS as the template engine
+app.set('view engine', 'ejs');
+
+// Route to render EJS template
+app.get('/profile', (req, res) => {
+    const user = { name: "Ananya", age: 25 };
+    res.render('profile', { user });
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+```
+3. **EJS Template (`views/profile.ejs`):**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Page</title>
+</head>
+<body>
+    <h1>Welcome, <%= user.name %></h1>
+    <p>Age: <%= user.age %></p>
+</body>
+</html>
+```
+***Key Features:***
+- `<%= variable %>` → Displays dynamic data.
+- `<% %>` → Executes JavaScript inside templates.
+- **Reusable Views** → Shared components like headers.
+
 
 ### 4. Static File Serving: Serve static assets like images and stylesheets.
 
