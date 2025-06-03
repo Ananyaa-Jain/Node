@@ -348,5 +348,68 @@ app.listen(3000, () => {
 - Express.js provides built-in middleware, `express.static()`, to serve static files like images, CSS, JavaScript, and HTML. Static files are essential for frontend assets in web applications.
 - Serve static assets like images and stylesheets.
 - The `express.static()` middleware allows you to serve static files by specifying a directory.
+```js
+const express = require("express");
+const path = require("path");
+const app = express();
 
-### 5. Error Handling: Manage errors in a structured way.
+// Serve files from 'public' folder
+app.use(express.static(path.join(__dirname + "public" )))
+
+app.listen(3000, ()=>{
+  console.log("Server is running on port 3000")
+});
+```
+**Folder Structure:**
+```
+project-folder/
+│── public/
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│── server.js
+```
+> Now, accessing `http://localhost:3000/index.html` will serve the `index.html` file from the `public` folder.
+
+***Serving Static Files at Custom URL Paths:***
+
+Express.js allows you to serve static files (HTML, CSS, JavaScript, images, etc.) and mount them at custom URL paths using the `express.static()` middleware. You can specify a mount path to serve files under a specific route
+```js
+const express = require('express');
+const path = require('path');
+const app = express();
+
+// Serve files from 'public' directory under '/static' path
+app.use('/static', express.static('public'));
+
+app.listen(3000);
+```
+
+### 5. Error Handling: 
+ Manage errors in a structured way.
+ 
+1. **Error Handling Middleware:**
+Express provides **a special middleware** for errors with **4 parameters**.
+```js
+app.use((err, req, res, next) => {
+  //error-handling logic
+})
+```
+> This must come **after all routes and middlewares**.
+
+2. **Throwing an Error Manually:**
+You can throw an error in a route or pass it to `next()`.
+```js
+app.get('/fail', (req, res, next) => {
+  const error = new Error('Intentional failure');   // throw new Error('Unexpected error');
+  error.status = 400;
+  next(error);
+});
+```
+3. **Handling 404 (Not Found)**
+Place this **at the end of all routes** to catch unmatched routes.
+```js
+app.use((req, res, next) => {
+  res.status(404).send('Page not found!');
+});
+```
