@@ -7,7 +7,7 @@
 ## 🔹Installing `dotenv` in Express
 To use `dotenv`, first install it:
 ```bash
-npm installndotenv
+npm install dotenv
 ```
 Then, require and configure it in your Express app:
 ```js
@@ -54,7 +54,7 @@ const jwtSecret = process.env.JWT_SECRET;
 console.log(`Server running on port ${port}`);
 console.log(`Database host: ${dbHost}`);
 ```
-> `process.env.KEY` 	Access any variable from the `.env` file
+> `process.env.KEY` →	Access any variable from the `.env` file
 
 
 
