@@ -1,6 +1,20 @@
 # What is Express.js?
 Express.js is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. 
 It's built on top of Node.js's built-in HTTP module and simplifies the process of building server-side applications and APIs.
+
+## 🔹Understanding the Express Application Object (`app`)
+The app object represents the Express application and provides methods for:
+- Routing HTTP requests
+- Configuring middleware
+- Rendering HTML views
+- Registering template engines
+```js
+const app = express();
+
+// app is an instance of express application
+// It has various methods like get, post, put, delete, use, listen, etc.
+```
+
 ## 🔹Key Features of Express.js 
 
 ### 1. Routing: 
@@ -91,8 +105,157 @@ app.get('/search', (req, res) => {
 ```
 > Request to `/search?q=nodejs` gives `Searching for: nodejs`
 
+***Difference Between Route and Query Parameters:***
 
-### 2. Middleware: Intercept and manipulate requests before they reach handlers.
+ **Route Parameters** are used to identify a specific resource or resources, while **Query Parameters** are used to sort/filter those resources.
+ 
+| Feature   | Route Parameter (`:userId`)     | Query Parameter (`?fields=name`)     |
+| --------- | ------------------------------- | ------------------------------------ |
+| Location  | In the URL path                 | After `?` in the URL                 |
+| Required? | Typically required              | Optional                             |
+| Used For  | Identifying a specific resource | Filtering, pagination, sorting, etc. |
+| Example   | `/user/123`                     | `/user/123?fields=name,email`        |
+
+
+### 2. Middleware: 
+- Middleware functions in Express execute code before a request reaches its route handler.
+- It is a helper function that can be used to extend the functionality of the Express app.
+- They have access to the request and response objects, as well as the next middleware function in the application’s request-response cycle. These functions can perform various operations like:-
+    - Executing code
+    - Modifying the request and response Object
+    - Terminating the request - response cycle
+    - handling cookies
+    - logging requests
+    - passing control to subsequent middleware function
+
+***Types of Middlewares:***
+1. **Application-Level Middleware:**
+- Application-level middleware is bound to the Express app instance (`app`). It runs on every request that matches the specified route.
+- Binds directly to `app` using `app.use()`.
+- Used for tasks like authentication, logging, and request modifications.
+```js
+const express = require('express');
+const app = express();
+
+// Middleware function
+app.use((req, res, next) => {
+    console.log(`Request Method: ${req.method}, URL: ${req.url}`);
+    next(); // Proceed to the next middleware or route handler
+});
+
+// Routes
+app.get('/', (req, res) => {
+    res.send('Home Page');
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+```
+
+2. **Router-Level Middleware:**
+- Router-level middleware binds to an instance of `express.Router()`, not `app`, making it modular and reusable.
+- Only applies to requests hitting routes within the router.
+- Useful for separating concerns (e.g., authentication middleware in user routes).
+```js
+const express = require('express');
+const router = express.Router();
+
+// Middleware for logging in user routes only
+router.use((req, res, next) => {
+    console.log(`Router-Level Middleware: ${req.method}, ${req.url}`);
+    next();
+});
+
+// Routes
+router.get('/users', (req, res) => {
+    res.send('User List');
+});
+
+router.post('/users', (req, res) => {
+    res.send('User Created');
+});
+
+// Export router
+module.exports = router;
+```
+
+3. **Error-Handling Middleware:**
+- Error-handling middleware catches errors in the request lifecycle and provides a centralized way to manage them.
+- Recognized by four parameters (err, req, res, next).
+- Must be declared after all other middleware and routes (i.e. at the end).
+- Handles unexpected errors, logging, and custom error responses.
+```js
+const express = require('express');
+const app = express();
+
+// Route with a simulated error
+app.get('/error', (req, res, next) => {
+    const err = new Error('Something went wrong!');
+    err.status = 500;
+    next(err); // Pass error to next middleware
+});
+
+// Error-handling middleware (Must have four parameters)
+app.use((err, req, res, next) => {
+    console.error(`Error: ${err.message}`);
+    res.status(err.status || 500).json({ error: err.message });
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+```
+
+4. **Built-In Middleware:**
+- Express provides built-in middleware for common tasks.
+- **Key Built-in Middlewares:**
+  - `express.json()` → Parses JSON request bodies to javascript objects.
+  - `express.urlencoded( { extended : true } )` → Parses URL-encoded request bodies (usually for form data or input).
+  - `express.static('folder')` → Serves static files.
+```js
+const express = require('express');
+const app = express();
+
+// JSON Parsing Middleware
+app.use(express.json()); 
+
+// Serving Static Files
+app.use(express.static('public')); // Serves files from 'public' folder
+
+app.post('/data', (req, res) => {
+    res.json(req.body); // Sends parsed JSON request body
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+```
+
+5. **Third-Party Middleware:**
+- Third-party middleware extends Express functionality beyond built-in features. These packages are installed via `npm`.
+- **Popular Third-Party Middleware:**
+    - `morgan` → HTTP request logging.
+    - `cors` → Handles cross-origin resource sharing.
+    - `helmet` → Security enhancements for HTTP headers.
+    - `compression` → Enables gzip compression for faster responses.
+```js
+const express = require('express');
+const morgan = require('morgan');
+const app = express();
+
+// Use Morgan for logging HTTP requests
+app.use(morgan('tiny')); // Logs requests in a concise format
+
+app.get('/', (req, res) => {
+    res.send('Home Page');
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+```
+
 
 ### 3. Template Engines: Render dynamic views.
 
