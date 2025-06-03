@@ -106,8 +106,6 @@ app.get('/search', (req, res) => {
 > Request to `/search?q=nodejs` gives `Searching for: nodejs`
 
 ***Difference Between Route and Query Parameters:***
-
- **Route Parameters** are used to identify a specific resource or resources, while **Query Parameters** are used to sort/filter those resources.
  
 | Feature   | Route Parameter (`:userId`)     | Query Parameter (`?fields=name`)     |
 | --------- | ------------------------------- | ------------------------------------ |
@@ -116,6 +114,7 @@ app.get('/search', (req, res) => {
 | Used For  | Identifying a specific resource | Filtering, pagination, sorting, etc. |
 | Example   | `/user/123`                     | `/user/123?fields=name,email`        |
 
+>  **Route Parameters** are used to identify a specific resource or resources, while **Query Parameters** are used to sort/filter those resources.
 
 ## 🔹Understanding `app.use()`
 - `app.use()` is the primary method for mounting middleware functions in Express.
