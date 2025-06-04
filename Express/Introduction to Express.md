@@ -412,3 +412,56 @@ app.use((req, res, next) => {
   res.status(404).send('Page not found!');
 });
 ```
+
+
+## 🔹Understanding `express.Router()`
+- `express.Router()` is a **mini Express application** (also called a **sub-application**) that handles **routing logic** in a modular and organized way. It allows you to create **route handlers** for a specific part of your site and then **mount** them in the main app.
+- `express.Router()` creates a router object that behaves like middleware itself. It's a complete middleware and routing system, often called a **mini-app** because it can perform middleware and routing functions just like the main Express application.
+
+***routes/index.js - Router File***
+```js
+const express = require("express);
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.render('index', { title: 'Home' });
+});
+
+// export the router
+module.exports = router;
+```
+
+***routes/api.js - Router File***
+```js
+const express = require('express');
+const router = express.Router();
+
+router.get('/status', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date() });
+});
+
+// export the router
+module.exports = router;
+```
+
+***app.js - Main App File***
+```js
+const express = require('express');
+
+// import the routes in the main file
+const indexRoutes = require('./routes/index');
+const apiRoutes = require('./routes/api');
+
+const app = express();
+
+app.use('/', indexRoutes);
+app.use('/api', apiRoutes);
+```
+
+
+### Router vs App Methods:
+Both router and app objects support the same routing methods (get, post, put, delete, etc.), but the key difference is scope. App methods affect the entire application, while router methods only affect routes within that specific router instance.
+
+
+
+
