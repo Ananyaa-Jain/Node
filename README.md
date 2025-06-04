@@ -23,3 +23,4 @@ This section introduces the **Express.js framework**, focusing on:
 ### `modules`
 This folder demonstrates the use of **third-party Node.js modules**, such as:
 - `cors` for enabling Cross-Origin Resource Sharing
+- `dotenv` for accessing `.env` file using `process.env`
