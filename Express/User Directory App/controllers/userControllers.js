@@ -111,10 +111,12 @@ exports.editForm = (req, res) => {
 exports.editDetail = (req, res) =>{
   const {id, email} = req.body
 
+  //read file
   let data = fs.readFileSync(filePath, "utf8");
   let prevUsers = []
   prevUsers = JSON.parse(data) 
-  
+
+  //find user
   let u = prevUsers.find(u => u.id === parseInt(id))
   u.email = email
   // console.log(prevUsers)
