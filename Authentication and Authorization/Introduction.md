@@ -140,6 +140,16 @@ app.listen(3000, () => {
 
 ```
 
+## 🔹Comparision Table for Stateful and Stateless Authentication
+
+| Feature             | Session-Based                       | Token-Based (JWT)        |
+| ------------------- | ----------------------------------- | ------------------------ |
+| Server-side storage | Required (memory/DB)                | Not required             |
+| Stateless           | ❌ No                                | ✅ Yes                    |
+| Scalability         | Harder (needs shared session store) | Easier (no shared state) |
+| Token invalidation  | Easy (destroy session)              | Hard (need blacklist)    |
+| Storage on client   | Cookie (browser-managed)            | LocalStorage / Cookie    |
+| Suitable for        | Web apps                            | SPA, mobile apps, APIs   |
 
 
 
