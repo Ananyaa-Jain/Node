@@ -6,6 +6,8 @@ There are **two primary types:**
 - **Token-based Authentication (Stateless)**
 
 
-## Session-Based Authentication (Stateful)
+## 🔹Session-Based Authentication (Stateful)
+**Session-based authentication** relies on storing user information in the ***server memory or a database*** after login. When a user logs in, the server **creates a session** and stores the **session ID**, which is then sent to the client via a **cookie**.
 
-## Token-based Authentication (Stateless)
+## 🔹Token-based Authentication (Stateless)
+**Stateless authentication** eliminates server-side session storage. Instead, it relies on ***JSON Web Tokens (JWT)***, which contain user data and are **sent with each request**.
