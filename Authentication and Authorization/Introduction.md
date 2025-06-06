@@ -16,6 +16,60 @@ There are **two primary types:**
 4. On **every next request**, browser sends that **cookie back**.
 5. Server **matches session ID** and returns appropriate response.
 
+### Dependency:
+```bash
+npm install express-session
+```
+
+### Example:
+```js
+const express = require("express");
+const session =  require("express-session");
+
+const app = express();
+
+// Configure session middleware
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set true if HTTPS
+}))
+
+//Dummy User
+const USER = {username: "ananya", password: "1234"};
+
+// login request
+app.post("/login", (req. res) => {
+  const {username, password} = req.body;
+
+  // verfiy from the database
+  if(username === USER.username && password === USER.password){
+    req.session.user = username;
+    res.send("Login Successful!!");
+  }else{
+    res.send("Invalid Credentials")
+  }
+});
+
+// dashboard request
+app.get("/dashboard", (req, res) => {
+  if(req.session.user){
+    res.send(`Welcome ${req.session.user}`);
+  }else{
+    res.status(401).send("Unauthorized")
+  }
+});
+
+// logout request
+app.post("/logout", (req, res)=> {
+  req.session.destory();
+  res.send("Logged out")
+});
+
+app.listen(3000, () => { console.log("Server is running on port 3000") } );
+```
+
 ## 🔹Token-based Authentication (Stateless)
 **Stateless authentication** eliminates server-side session storage (no session data is stored on server). Instead, it relies on ***JSON Web Tokens (JWT)***, which contain user data and are **sent with each request**.
 
