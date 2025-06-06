@@ -145,7 +145,7 @@ app.listen(3000, () => {
 | Feature             | Session-Based                       | Token-Based (JWT)        |
 | ------------------- | ----------------------------------- | ------------------------ |
 | Server-side storage | Required (memory/DB)                | Not required             |
-| Stateless           | ❌ No                                | ✅ Yes                    |
+| Stateless           |  No                                |  Yes                    |
 | Scalability         | Harder (needs shared session store) | Easier (no shared state) |
 | Token invalidation  | Easy (destroy session)              | Hard (need blacklist)    |
 | Storage on client   | Cookie (browser-managed)            | LocalStorage / Cookie    |
