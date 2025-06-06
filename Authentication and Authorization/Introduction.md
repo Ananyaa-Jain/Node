@@ -28,6 +28,8 @@ const session =  require("express-session");
 
 const app = express();
 
+app.use(express.urlencoded({extended: false}));
+
 // Configure session middleware
 app.use(session({
   secret: 'your-secret-key',
@@ -79,3 +81,67 @@ app.listen(3000, () => { console.log("Server is running on port 3000") } );
 3. JWT is sent to the client and stored(usually in `localStorage` or an `HTTP-only cookie`).
 4. On subsequent requests, the client sends the JWT in the `Authorization` header.
 5. Server verifies the token(doesn't need to store anything) and grants access.
+
+### Dependency:
+```bash
+npm install jsonwebtoken
+```
+### Example:
+```js
+const express = require("express");
+const jwt = require("jsonwebtoken");
+
+const app = express();
+
+app.use(express.json());
+
+//Dummy user
+const USER = {username: "ananya", password: "1234"};
+const SECRET_KEY = "jwt-secret-key"
+
+// login request
+app.post("/login", (req, res) => {
+  const {username, password} = req.body;
+
+//verify from DB
+  if(username === USER.username && password === USER.password){
+    // create JWT
+    // jwt.sign(payload, secretOrPrivateKey, [options, callback])
+    const token = jwt.sign({username}, SECRET_KEY, {expiresIn: "1h"});
+    res.json({token});
+  }else{
+    res.status(401).send("Invalid Credentials");
+  } 
+});
+
+// middleware to verify token
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];   // Bearer <token>
+  const token = authHeader ? authHeader.split(" ")[1] : undefined;
+  // const toeken = req.headers.authorization?.split(" ")[1];
+
+  if(!token) return res.status(401).send("No Token");
+
+  //verify token
+  jwt.verify(token, SECRET_KEY, (err, user) => {
+    if(err) return res.status(403);
+    req.user = user;  // Add user to request
+    next();
+  });
+}
+
+app.get("/dashboard", authenticateToken, (req, res) => {
+  res.send(`Welcome ${req.user.username}`)
+}); 
+
+app.listen(3000, () => {
+  console.log("JWT auth server running at port 3000")
+})
+
+```
+
+
+
+
+
+
