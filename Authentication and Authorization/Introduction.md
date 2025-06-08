@@ -78,7 +78,7 @@ app.listen(3000, () => { console.log("Server is running on port 3000") } );
 ## 🔹Token-based Authentication (Stateless)
 **Stateless authentication** eliminates server-side session storage (no session data is stored on server). Instead, it relies on ***JSON Web Tokens (JWT)***, which contain user data and are **sent with each request**.
 
-### Key Components of a JWT Token
+### Key Components of a JWT Token:
 A JWT token has three parts:
 - **Header:** Specifies the type (JWT) and signing algorithm (`HS256`).
 - **Payload:** Contains user data (`id`, `role`, `expiry`).
