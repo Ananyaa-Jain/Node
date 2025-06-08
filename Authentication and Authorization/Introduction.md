@@ -20,6 +20,9 @@ There are **two primary types:**
 ```bash
 npm install express-session
 ```
+`express-session` is a middleware for Express that allows you to manage user sessions on the server side.
+It helps you store and retrieve data across multiple requests from the same user.
+
 
 ### Example:
 ```js
