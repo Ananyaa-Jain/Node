@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit User Form</title>
-</head>
-<body>
-  <h1><%= u.name %></h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit User Form</title>
+  </head>
+  <body>
+    <h1><%= u.name %></h1>
 
-  <form action="/users/edit-user-detail?_method=PATCH" method="POST">
-    <input type="hidden" name="id" value="<%= u.id %>">
-    E-mail:
-    <input type="email" name="email" value="<%= u.email %>" required>
-    <button type="submit">Edit User</button>
-  </form>
-</body>
+    <form action="/users/edit-user-detail?_method=PATCH" method="POST">
+      <input type="hidden" name="id" value="<%= u.id %>" />
+      E-mail:
+      <input type="email" name="email" value="<%= u.email %>" required />
+      <button type="submit">Edit User</button>
+    </form>
+  </body>
 </html>

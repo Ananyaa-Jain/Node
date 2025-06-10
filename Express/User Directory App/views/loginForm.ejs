@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+  </head>
+  <body>
+    <h1> Login </h1>
+    <form action="/auth/authenticate-user" method="POST">
+      Username:
+      <input type="text" name="username" placeholder="username" />
+      Password:
+      <input type="password" name="password" placeholder="password" />
+      <button type="submit">Login</button>
+    </form>
+    <a href="/auth/sign-up">New User. SIGNUP!!</a>
+
+    <% if (message) { %>
+    <script>
+      alert('<%= message %>')
+    </script>
+    <% } %>
+  </body>
+</html>

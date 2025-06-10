@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Directory App</title>
+  </head>
+  <body>
+    <h1>User Directory App</h1>
+
+    <a href="/auth/sign-up"><button type="submit">Sign Up</button></a>
+    <a href="/auth/login"><button type="submit">Login</button></a>
+
+    <% if (message) { %>
+    <script>
+      alert('<%= message %>')
+    </script>
+    <% } %>
+  </body>
+</html>

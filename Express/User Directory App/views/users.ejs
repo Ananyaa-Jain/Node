@@ -2,17 +2,21 @@
   <head>
     <title> List All Users </title>
   </head>
-  <body> 
+  <body>
     <h1> All Users </h1>
-    <ul> 
+    <ul>
       <% users.forEach((user) => { %>
-        <li> <a href="/users/about/<%= user.id %>"> <%= user.name %> </a>
-              <a href="/users/edit/<%= user.id %>"> <button> Edit </button> </a> 
-              <a href="/users/delete/<%= user.id %>"> <button> Delete</button> </a> 
-        </li>
-        <br>
+      <li>
+        <a href="/users/about/<%= user.id %>"> <%= user.name %> </a>
+        <a href="/users/edit/<%= user.id %>"> <button> Edit </button> </a>
+        <a href="/users/delete/<%= user.id %>"> <button> Delete</button> </a>
+      </li>
+      <br />
       <% }) %>
-      <a href="/"><button>Go to Home Page</button></a>
+      <a href="/home"><button>Go to Home Page</button></a>
     </ul>
+    <form action="/logout" method="post">
+      <button type="submit">LOGOUT</button>
+    </form>
   </body>
 </html>
