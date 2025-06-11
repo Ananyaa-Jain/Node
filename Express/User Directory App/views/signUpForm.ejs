@@ -10,10 +10,17 @@
     <form action="/auth/add-user" method="post">
       User Name:
       <input type="text" name="username" placeholder="username" />
+      E-Mail:
+      <input type="email" name="email" placeholder="E-mail" />
       Password:
       <input type="password" name="password" placeholder="password" />
       <button type="submit">Register</button>
     </form>
+
+    <% if (message) { %>
+    <div style="color: red"><%= message %></div>
+    <% } %>
+
     <a href="/auth/login">Already Registered. LOGIN!!</a>
   </body>
 </html>

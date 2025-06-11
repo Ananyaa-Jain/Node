@@ -10,9 +10,6 @@ import {
 } from '../controllers/userControllers.js';
 import { authenticateToken } from '../middleware/authMiddleware.js';
 
-// const express = require("express");
-// const userController = require("../controllers/userControllers");
-
 const router = express.Router();
 
 // list all users

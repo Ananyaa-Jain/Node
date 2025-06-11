@@ -1,16 +1,12 @@
 import express from 'express';
 import userRoutes from './routes/users.js';
-// import signUpRoutes from "./routes/signUp.js";
-// import loginRoutes from "./routes/login.js";
 import authRoutes from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-
+// import { pool } from './db/connection.js';
 import methodOverride from 'method-override';
+import { sequelize } from './db/sequelize.js';
 
-// const express = require("express");
-// const userRoutes = require("./routes/users");
-// const methodOverride = require("method-override");
 dotenv.config();
 
 //export value of port from ".env" file
@@ -36,16 +32,12 @@ app.set('view engine', 'ejs');
 //mount middleware for "/users" routes
 app.use('/users', userRoutes);
 
-// //mount middleware for "/sign-up" routes
-// app.use("/auth/sign-up", signUpRoutes);
-
-// //mount middleware for "/login" routes
-// app.use("/auth/login", loginRoutes);
 app.use('/auth', authRoutes);
 
 app.get('/home', (req, res) => {
-  //console.log(req.body);
-  res.render('home');
+  //res.render('loginForm', { message });
+  let message = req.query.message || null;
+  res.render('home', { message });
 });
 
 app.post('/logout', (req, res) => {
@@ -64,6 +56,38 @@ app.get('/', (req, res) => {
   res.render('userDirectoryApp', { message });
 });
 
-app.listen(3000, (req, res) => {
-  console.log(`Server is running on ${port}`);
-});
+//connections
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Sequelize: Connection has been established successfully.');
+    // Sync all models
+    return sequelize.sync(); // or sequelize.sync({ alter: true })
+  })
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Sequelize: Unable to connect to the database:', err);
+    process.exit(1);
+  });
+
+// pool
+//   .connect()
+//   .then(() => {
+//     console.log('Connected to PostgreSQL Database');
+
+//     app.listen(3000, (req, res) => {
+//       console.log(`Server is running on ${port}`);
+//     });
+//   })
+//   .catch((err) => {
+//     console.log('Failed to connect to db: ', err.message);
+//     process.exit(1);
+//   });
+
+// app.listen(3000, (req, res) => {
+//   console.log(`Server is running on ${port}`);
+// });

@@ -10,5 +10,10 @@
     <form action="/logout" method="post">
       <button type="submit">LOGOUT</button>
     </form>
+    <% if (typeof message !== 'undefined' && message) { %>
+    <script>
+      alert('<%= message %>')
+    </script>
+    <% } %>
   </body>
 </html>

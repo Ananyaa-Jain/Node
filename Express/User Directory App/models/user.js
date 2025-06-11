@@ -1,10 +1,32 @@
-class User {
-  constructor(id, name, email) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.isDeleted = false;
-  }
-}
+// models/user.js
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../db/sequelize.js';
 
-export default User;
+export const User = sequelize.define(
+  'User',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+  },
+  {
+    tableName: 'users',
+    timestamps: true,
+    underscored: true,
+  }
+);
